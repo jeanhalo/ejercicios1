@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <div>TODO write content</div>
+
+        <script type="text/javascript">
+            
+            // Prueba 2
+            console.log("PRUEBA 2");
+            
+            var arrPrimos = [1,6,7,8,9,8,7,11,3,4,9,33,19,17,18];
+            var primos = [];
+            
+            
+            arrPrimos.forEach(function (element){
+                var contador = 1;
+                var validador = 0;
+                while(element >= contador){
+                    if(((element % contador) == 0)){
+                        validador++;
+                    }
+                    contador++;
+                }
+                
+                if(validador <= 2){
+                    primos.push(element);
+                }
+                       
+            });
+            
+            console.log("Numeros primos: ", primos);
+            
+            
+            // Prueba 3
+            console.log("PRUEBA 3");
+            
+            var arregloBidimencional = [
+                [2,44,65,56],
+                [11,24,65,1],
+                [81,94,50,0],
+                [1,4,0,10]
+            ];
+            
+            // Filas
+            // Columnas
+            // Diagonal ascendente y descendente
+            
+            // Sumar filas 
+            console.log("Sumar filas");
+            arregloBidimencional.forEach(function (element, index) {
+                
+                var suma = 0;
+                element.forEach(function (item, i) {
+                    suma = suma + item;
+                });
+                
+                console.log("La fila " + (index + 1) + " suma " + suma);
+                
+            });
+            
+            // Sumar columnas 
+            console.log("Sumar columnas");
+            arregloBidimencional.forEach(function (element, index) {
+                
+                var suma = 0;
+                
+                for(var i = 0; i < arregloBidimencional.length; i++){
+                    suma = suma + arregloBidimencional[i][index];
+                }
+                
+                console.log("La columna " + (index + 1) + " suma " + suma);
+                
+            });
+            
+            // Suma diagonal ascendente
+            console.log("Suma diagonal ascendente");
+                
+            var iniFila = arregloBidimencional.length - 1;
+            var iniColumna = 0;
+                
+            var suma = 0;
+                
+            for(var i = 0; i < arregloBidimencional.length; i++){
+                suma = suma + arregloBidimencional[iniFila][iniColumna];
+                iniColumna++;
+                iniFila--;  
+            }
+                
+            console.log("La suma ascendente es " + suma);
+            
+            
+            // Suma diagonal descendente
+            console.log("Suma diagonal descendente");
+                
+            var iniFilaDes = 0;
+            var iniColumnaDes = 0;
+                
+            var suma = 0;
+                
+            for(var i = 0; i < arregloBidimencional.length; i++){
+                suma = suma + arregloBidimencional[iniFilaDes][iniColumnaDes];
+                iniFilaDes++;
+                iniColumnaDes++;  
+            }
+                
+            console.log("La suma descendente es " + suma);
+                
+            
+            
+
+        </script>
+    </body>
+</html>

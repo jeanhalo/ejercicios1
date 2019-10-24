@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <div>TODO write content</div>
+
+        <script type="text/javascript">
+                         
+            // Prueba 1
+            console.log("PRUEBA 1");
+
+            var apellido = "Montes";
+            var a = [
+                ['Carlos', 2, 3],
+                ['Cristian', 'Camilo', '23.5'],
+                [2.3, 4, 5],
+                "Camilo",
+                [
+                    ['Carlos']
+                ]
+            ];
+            // Si encuentra Camilo o Cristian o Carlos lo almacenan en un nuevo arreglo con el nombre aprendices
+            // Si encuentra Carlos imprimo "El vocero es " + variable[posicion] + apellido
+            // numeros sacan el promedio usando typeof()
+            var nombreAprendices = [];
+            var suma = 0;
+            var contador = 0;
+            var promedio = 0;
+
+            /*a.forEach(function (arreglo) {
+                if (typeof (arreglo) == "object") {
+                    arreglo.forEach(function (item) {
+                        if (item == "Carlos" || item == "Cristian" || item == "Camilo") {
+                            nombreAprendices.push(item);
+                            if (item == "Carlos") {
+                                console.log("El vocero es " + item + " " + apellido);
+                            }
+                        }
+
+                        if (typeof (item) == "number") {
+                            suma = suma + item;
+                            contador++;
+                        }
+                    });
+                } else {
+                    console.log("No es un array");
+                }
+
+            });*/
+            
+            iniciarPrueba1();
+            
+            function iniciarPrueba1(){
+                var retorno = validarSiEsArreglo(a);
+                promedio = buscarPromedio(suma, contador)
+                if(retorno){
+                    imprimirDatosPrueba1();
+                }
+            }
+
+            function validarSiEsArreglo(data) {
+                if (typeof (data) == "object") {
+                    data.forEach(function (element) {
+                        validarSiEsArreglo(element);
+                    });
+                } else {
+                    validarSolicitud(data);
+                }
+                return true;
+            }
+
+            function validarSolicitud(item) {
+                if (item == "Carlos" || item == "Cristian" || item == "Camilo") {
+                    nombreAprendices.push(item);
+                    if (item == "Carlos") {
+                        console.log("El vocero es " + item + " " + apellido);
+                    }
+                }
+
+                if (typeof (item) == "number") {
+                    suma = suma + item;
+                    contador++;
+                }
+            }
+            
+            function buscarPromedio(suma, contador){
+                return (suma / contador);
+            }
+            
+            function imprimirDatosPrueba1(){
+                console.log("Nombre aprendices ", nombreAprendices);
+                console.log("Promedio numeros encontrados ", promedio);
+            }
+            
+
+        </script>
+    </body>
+</html>
