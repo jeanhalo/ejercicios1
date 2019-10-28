@@ -5,49 +5,152 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        
-        <input type="text" name="inpNumero1">
-        <input type="text" name="inpNumero2">
-        <button onclick="dividir()" >DIVIDIR</button>
-        <button onclick="raizCuadrada()" >RAIZ CUADRADA</button>
-        <button onclick="potencia()" >POTENCIA</button>
-        
-        <script>
-            
-            var numero1 = document.querySelector('input[name=inpNumero1]');
-            
-            console.log(numero1);
-            
-            function dividir(){
-                // 1 Campos diligenciados
-                // 2 Que sean numericos
-                // 3 validacion el divisor != 0
-                console.log(numero1.value);
+
+<head>
+    <title>DOM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <input type="text" name="inpNumero1">
+    <input type="text" name="inpNumero2">
+    <button onclick="dividir()">DIVIDIR</button>
+    <button onclick="raizCuadrada()">RAIZ CUADRADA</button>
+    <button onclick="potencia()">POTENCIA</button>
+    <br>
+    <div id="resultado"></div>
+    <br>
+    <button onclick="limpiarLog()">Limpiar historial</button>
+
+    <script>
+
+        var numero1 = document.querySelector('input[name=inpNumero1]');
+        var numero2 = document.querySelector('input[name=inpNumero2]');
+        var resultado = document.querySelector('div[id=resultado]');
+
+        function dividir() {
+            // 1 Campos diligenciados
+            // 2 Que sean numericos
+            // 3 validacion el divisor != 0
+            if (combinarValidacionEnComun()) {
+                if (validarDivisorDiferenteCero(numero2.value)) {
+                    var division = (numero1.value / numero2.value);
+                    alertasMensaje('El resultado de la división es: ' + numero1.value + '÷' + numero2.value + ' = ' + division);
+                } else {
+                    alertasMensaje('El divisor debe ser diferente a 0.', 'danger');
+                }
             }
-            
-            function raizCuadrada(){
-                // 1 Campos diligenciados
-                // 2 Que sean numericos
-                // 3 la base debe ser mayor o igual a 0, sea numero 1 o numero2
-                // 4 si estan los dos prevalece numero1
+        }
+
+        function raizCuadrada() {
+            // 1 Campos diligenciados
+            // 2 Que sean numericos
+            // 3 la base debe ser mayor o igual a 0, sea numero 1 o numero2
+            // 4 si estan los dos prevalece numero1
+            if (combinarValidacionEnComun()) {
+                if (validarSiEsMayorIgualCero(numero1.value) && validarSiEsMayorIgualCero(numero2.value)) {
+                    var raiz1 = Math.sqrt(numero1.value);
+                    var raiz2 = Math.sqrt(numero1.value);
+                    alertasMensaje('El resultado de la raiz cuadrada es: √' + numero1.value + ' = ' + raiz1);
+                    alertasMensaje('El resultado de la raiz cuadrada es: √' + numero2.value + ' = ' + raiz2);
+                } else {
+                    alertasMensaje('La base debe ser mayor o igual a 0 (Cero).', 'danger');
+                }
+
             }
-            
-            function potencia() {
-                // 1 Campos diligenciados
-                // 2 Que sean numericos
+        }
+
+        function potencia() {
+            // 1 Campos diligenciados
+            // 2 Que sean numericos
+            if (combinarValidacionEnComun()) {
+                //var raiz = Math.pow(numero1.value, numero2.value);
+                var raiz = Math.pow2(numero1.value, numero2.value);
+
+                alertasMensaje('El resultado de la potencia es: ' + numero1.value + '^' + numero2.value + ' = ' + raiz);
             }
-            
-            function validarCampos(){
-                
+        }
+
+        Math.pow2 = function (n, p) {
+            if (n < 0) {
+                var v = Math.pow((n * -1), p);
+                v = (v * -1);
+                return v;
             }
-            
-        </script>
-        
-    </body>
+            else {
+                return Math.pow(n, p);
+            }
+        }
+
+        function validarCamposObligatorios(numero) {
+            return (numero != '');
+        }
+
+        function validarSiEsNumerico(numero) {
+            return (/^([0-9])+([.][0-9]+)?$/.test(numero));
+        }
+
+        function validarSiEsNumericoNegativo(numero) {
+            return (/^[-]?[0-9]+([.][0-9]+)?$/.test(numero));
+        }
+
+        function validarDivisorDiferenteCero(divisor) {
+            return (divisor != 0);
+        }
+
+        function validarSiEsMayorIgualCero(numero) {
+            return (numero >= 0);
+        }
+
+        function alertasMensaje(mensaje, tipoMensaje = 'success') {
+
+            var colorText = '';
+
+            switch (tipoMensaje) {
+                case 'success':
+                    //resultado.style.cssText = "color: green;"
+                    colorText = 'green';
+                    break;
+                case 'danger':
+                    //resultado.style.cssText = "color: red;"
+                    colorText = 'red';
+                    break;
+                case 'warning':
+                    //resultado.style.cssText = "color: yellow;"
+                    colorText = 'yellow';
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            resultado.innerHTML = resultado.innerHTML + '<hr> <span style="color: ' + colorText + ';">' + mensaje + '</span>';
+            //alert(mensaje);
+        }
+
+        function combinarValidacionEnComun() {
+            if (validarCamposObligatorios(numero1.value) && validarCamposObligatorios(numero2.value)) {
+                if (validarSiEsNumericoNegativo(numero1.value) && validarSiEsNumericoNegativo(numero2.value)) {
+                    return true;
+                } else {
+                    alertasMensaje('Uno o los dos campos no contienen números.', 'danger');
+                    return false;
+                }
+            } else {
+                alertasMensaje('Los dos campos son obligatorios.', 'danger');
+                return false;
+            }
+        }
+
+        function limpiarLog() {
+            resultado.innerHTML = '';
+        }
+
+    </script>
+
+</body>
+
 </html>
